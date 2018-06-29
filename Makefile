@@ -14,7 +14,7 @@ docker-env:
 
 build: docker-env	
 	docker build --tag $(IMAGE) \
-		--build-arg commit=$(COMMIT) \
+		--build-arg release=$(COMMIT) \
 		--build-arg version=$(VERSION) \
 		--build-arg build_time=$(BUILD_TIME) \
 		service/
