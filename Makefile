@@ -9,17 +9,16 @@ BUILD_TIME?=$(shell date -u '+%Y-%m-%d_%H:%M:%S')
 start:
 	minikube start --insecure-registry "$(NS)"
 
-docker-env:
-	eval $(shell minikube docker-env)
-
-build: docker-env	
+build:
+	@echo "*** run eval \$$(minikube docker-env) before!"
 	docker build --tag $(IMAGE) \
 		--build-arg release=$(COMMIT) \
 		--build-arg version=$(VERSION) \
 		--build-arg build_time=$(BUILD_TIME) \
 		service/
 
-push: docker-env
+push:
+	@echo "*** run eval \$$(minikube docker-env) before!"
 	docker push $(IMAGE)
 
 create-%:
