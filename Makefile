@@ -9,9 +9,6 @@ BUILD_TIME?=$(shell date -u '+%Y-%m-%d_%H:%M:%S')
 start:
 	minikube start --insecure-registry "$(NS)"
 
-registry:
-	kubectl apply -f registry/local-registry.yml
-
 docker-env:
 	eval $(shell minikube docker-env)
 
