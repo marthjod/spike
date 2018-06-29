@@ -1,3 +1,6 @@
+# make start
+# make create-registry
+
 NS=localhost:5000
 IMAGE=$(NS)/spike
 
@@ -18,9 +21,9 @@ build: build-golang-alpine-git
 	@echo "*** run eval \$$(minikube docker-env) before!"
 	docker tag $(NS)/golang-alpine-git golang-alpine-git
 	docker build --tag $(IMAGE) \
-		--build-arg release=$(COMMIT) \
-		--build-arg version=$(VERSION) \
-		--build-arg build_time=$(BUILD_TIME) \
+		--build-arg release="$(COMMIT)" \
+		--build-arg version="$(VERSION)" \
+		--build-arg build_time="$(BUILD_TIME)" \
 		service/
 
 push:
