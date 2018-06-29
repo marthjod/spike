@@ -40,5 +40,16 @@ delete-%:
 export-%:
 	kubectl get --export -o=json $*s/spike > $*.yaml
 
+
+redeploy: build push delete-service delete-deployment create-deployment create-service
+
 test:
-	curl "http://$(shell minikube ip):$(shell kubectl get services/spike -o go-template='{{(index .spec.ports 0).nodePort}}')"
+	i=0; \
+	while [ $${i} -lt 5 ]; do \
+		curl http://`minikube ip`:`kubectl get services/spike -o go-template='{{(index .spec.ports 0).nodePort}}'` ; \
+		if [ $$? -eq 0 ]; then \
+			break ; \
+		fi; \
+		sleep 1 ; \
+		i=`expr $$i + 1` ; \
+	done
