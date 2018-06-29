@@ -30,11 +30,10 @@ start-%:
 
 delete-%:
 	kubectl delete -f $*.yaml
-	
+
 test:
-	curl http://$(shell minikube ip):$(shell kubectl get services/spike -o go-template='{{(index .spec.ports 0).nodePort}}')
+	curl "http://$(shell minikube ip):$(shell kubectl get services/spike -o go-template='{{(index .spec.ports 0).nodePort}}')"
 
 # documentary
-export:
-	kubectl get --export -o=json deployments/spike > deployment.yaml
-	kubectl get --export -o=json services/spike > service.yaml
+export-%:
+	kubectl get --export -o=json $*s/spike > $*.yaml
