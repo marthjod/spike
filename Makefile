@@ -22,7 +22,7 @@ build: docker-env
 push: docker-env
 	docker push $(IMAGE)
 
-start-%:
+create-%:
 	kubectl create -f $*.yaml
 
 delete-%:
