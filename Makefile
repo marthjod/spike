@@ -12,14 +12,8 @@ BUILD_TIME?=$(shell date -u '+%Y-%m-%d_%H:%M:%S')
 start:
 	minikube start --insecure-registry "$(NS)"
 
-build-golang-alpine-git:
+build:
 	@echo "*** run eval \$$(minikube docker-env) before!"
-	docker build --tag $(NS)/golang-alpine-git golang-alpine-git/
-	docker push $(NS)/golang-alpine-git
-
-build: build-golang-alpine-git
-	@echo "*** run eval \$$(minikube docker-env) before!"
-	docker tag $(NS)/golang-alpine-git golang-alpine-git
 	docker build --tag $(IMAGE) \
 		--build-arg release="$(COMMIT)" \
 		--build-arg version="$(VERSION)" \
